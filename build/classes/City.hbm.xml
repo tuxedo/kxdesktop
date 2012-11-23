@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="net.blogjava.nokiaguy.kxw.entity.City" table="t_kx_cities">
+		<id name="id" column="id" type="int">
+			<generator class="increment" />
+		</id>
+		<property name="name" column="name" />
+		<property name="provinceId" column="province_id" />
+	</class>
+</hibernate-mapping>
+  

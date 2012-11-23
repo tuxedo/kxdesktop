@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+	<!--  指定Struts 2配置文件的DTD信息  -->
+<!DOCTYPE struts PUBLIC
+      "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+      "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="kxw" namespace="/kxw" extends="struts-default">
+		<interceptors>
+			<interceptor-stack name="excludeParamsStack">
+				<interceptor-ref name="defaultStack">
+					<param name="params.excludeParams">ext-comp-.*</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<action name="register" class="net.blogjava.nokiaguy.kxw.actions.RegisterAction">
+			<result name="result">/WEB-INF/kxw_jsp/result.jsp
+			</result>
+			<result name="input">/WEB-INF/kxw_jsp/error.jsp
+			</result>
+			<interceptor-ref name="excludeParamsStack"/>
+		</action>
+		<action name="login" class="net.blogjava.nokiaguy.kxw.actions.LoginAction">
+			<result name="result">/WEB-INF/kxw_jsp/result.jsp
+			</result>			
+		</action>
+		<action name="logout" class="net.blogjava.nokiaguy.kxw.actions.LogoutAction"/>
+		<action name="allDesktopIcons" class="net.blogjava.nokiaguy.kxw.actions.AllDesktopIconsAction"/>
+		<action name="saveDesktopIconsSetting" class="net.blogjava.nokiaguy.kxw.actions.SaveDesktopIconsSettingAction">
+			<result name="result">/WEB-INF/kxw_jsp/result.jsp
+			</result>			
+		</action>
+
+		<action name="provinces"
+			class="net.blogjava.nokiaguy.kxw.actions.ProvincesAction">
+			<result name="success">/WEB-INF/kxw_jsp/provinces.jsp
+			</result>
+		</action>
+		<action name="cities" class="net.blogjava.nokiaguy.kxw.actions.CitiesAction">
+			<result name="success">/WEB-INF/kxw_jsp/cities.jsp
+			</result>
+			<result name="empty">/WEB-INF/kxw_jsp/empty.jsp
+			</result>
+		</action>
+		<action name="sex" class="net.blogjava.nokiaguy.kxw.actions.SexAction">
+			<result name="success">/WEB-INF/kxw_jsp/sex.jsp
+			</result>
+		</action>
+		<action name="status" class="net.blogjava.nokiaguy.kxw.actions.StatusAction">
+			<result name="success">/WEB-INF/kxw_jsp/status.jsp
+			</result>
+		</action>
+		<action name="*_jsp">
+			<result>/WEB-INF/kxw_jsp/{1}.jsp
+			</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml">
+		</property>
+	</bean>
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_REQUIRED, readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+			    <value>userDAO</value>				
+				<value>provinceDAO</value>
+				<value>cityDAO</value>
+				<value>sexDAO</value>
+				<value>statusDAO</value>
+				<value>desktopIconDAO</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="userDAO" class="net.blogjava.nokiaguy.kxw.dao.UserDAOImpl">
+		<constructor-arg>
+			<ref bean="hibernateTemplate" />
+		</constructor-arg>
+	</bean>
+	<bean id="provinceDAO" class="net.blogjava.nokiaguy.kxw.dao.ProvinceDAOImpl">
+		<constructor-arg>
+			<ref bean="hibernateTemplate" />
+		</constructor-arg>
+	</bean>
+	<bean id="cityDAO" class="net.blogjava.nokiaguy.kxw.dao.CityDAOImpl">
+		<constructor-arg>
+			<ref bean="hibernateTemplate" />
+		</constructor-arg>
+	</bean>
+	<bean id="sexDAO" class="net.blogjava.nokiaguy.kxw.dao.SexDAOImpl">
+		<constructor-arg>
+			<ref bean="hibernateTemplate" />
+		</constructor-arg>
+	</bean>
+	<bean id="statusDAO" class="net.blogjava.nokiaguy.kxw.dao.StatusDAOImpl">
+		<constructor-arg>
+			<ref bean="hibernateTemplate" />
+		</constructor-arg>
+	</bean>
+	<bean id="desktopIconDAO" class="net.blogjava.nokiaguy.kxw.dao.DesktopIconDAOImpl">
+		<constructor-arg>
+			<ref bean="hibernateTemplate" />
+		</constructor-arg>
+	</bean>
+	<bean id="userService" class="net.blogjava.nokiaguy.kxw.service.UserServiceImpl">
+		<constructor-arg>
+			<ref bean="userDAO" />			
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="desktopIconDAO" />			
+		</constructor-arg>
+	</bean>
+	<bean id="provinceService" class="net.blogjava.nokiaguy.kxw.service.ProvinceServiceImpl">
+		<constructor-arg>
+			<ref bean="cityDAO" />
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="provinceDAO" />
+		</constructor-arg>
+	</bean>
+
+
+</beans>

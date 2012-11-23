@@ -1,0 +1,49 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>简单的拖放操作</title>
+<link rel="stylesheet" type="text/css"
+	href="script/resources/css/ext-all.css" />
+<script type="text/javascript" src="script/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="script/ext-all.js"></script>
+<script type="text/javascript" src="script/locale/ext-lang-zh_CN.js"></script>
+
+<script type="text/javascript">
+var dd1;
+var dd2;
+
+function init() 
+{
+	dd1 = new Ext.dd.DDProxy("block1");
+	dd2 = new Ext.dd.DD("block2");	
+}  
+Ext.onReady(init); 
+
+function onClick()
+{
+    if(chkLockComponent.checked)
+    {
+        dd1.lock();
+        dd2.lock();
+    }
+    else
+    {
+        dd1.unlock();
+        dd2.unlock();
+    }
+}
+</script>
+</head>
+<body>
+<input id="chkLockComponent" type="checkbox" onclick="onClick()" />
+锁定桌面组件
+<div id="block1"
+	style="position: absolute; left: 100px; top: 30px; width: 50px; height: 50px; background-color: blue; color: yellow;">拖我</div>
+
+<div id="block2"
+	style="position: absolute; left: 200px; top: 70px; width: 80px; height: 50px; background-color: red; color: white;">Drag
+me</div>
+
+
+</body>
+</html>

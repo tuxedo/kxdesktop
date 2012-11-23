@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="net.blogjava.nokiaguy.kxw.entity.User" table="t_kx_users">
+		<id name="id" column="id" type="int">
+			<generator class="increment" />
+		</id>
+		<property name="email" column="email" />
+		<property name="password" column="password" />
+		<property name="name" column="name" />
+		<property name="birthday" column="birthday" />
+		<many-to-one name="sex" column="sex_id" cascade="all"
+			unique="true" not-null="true" />
+		<many-to-one name="city" column="city_id" cascade="all"
+			unique="true" not-null="true" />
+		<many-to-one name="status" column="status_id" cascade="all"
+			unique="true" not-null="true" />
+		<property name="company" column="company" />
+			
+	</class>
+</hibernate-mapping>
+  
